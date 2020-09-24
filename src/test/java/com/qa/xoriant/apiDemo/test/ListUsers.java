@@ -1,17 +1,16 @@
 package com.qa.xoriant.apiDemo.test;
 
-import static org.testng.Assert.assertEquals;
-
 import java.util.List;
-
+import static io.restassured.RestAssured.*;
 import static io.restassured.matcher.RestAssuredMatchers.*;
 import static org.hamcrest.Matchers.*;
 import org.testng.Assert;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
-
+import static io.restassured.module.jsv.JsonSchemaValidator.*;
 import base.BaseClass;
+import io.restassured.http.ContentType;
 import io.restassured.path.json.JsonPath;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
@@ -73,5 +72,13 @@ public class ListUsers extends BaseClass{
 		
 		return obj;
 		
+	}
+	
+	@Test
+	public void JSONSchemaValidator()
+	{
+		given().contentType(ContentType.JSON).when().
+		get("https://reqres.in/api/users?page=2").then().assertThat().statusCode(200).and().
+		body(matchesJsonSchemaInClasspath("ListUserJSONSchema.json"));
 	}
 }

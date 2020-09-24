@@ -5,8 +5,15 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 public class CreateUserPOJO {
 	
+	public CreateUserPOJO(String name, String job) {
+		this.name = name;
+		this.job = job;
+	}
+	
 	private String name;
 	private String job;
+	
+	
 	
 	
 	public String getName() {

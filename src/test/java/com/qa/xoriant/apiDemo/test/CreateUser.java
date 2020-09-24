@@ -25,7 +25,7 @@ public class CreateUser extends BaseClass {
 	{
 		
 		baseURL();
-		String responseBody = RestAssured.given().body(cud.createUserData(name,job))
+		String responseBody = RestAssured.given().header("content-type", "application/json").body(cud.createUserData(name,job))
 		.when().post("/api/users")
 		.then().assertThat().statusCode(201).extract().response().asString();
 		
@@ -40,7 +40,7 @@ public class CreateUser extends BaseClass {
 	{
 		
 		baseURL();
-		String responseBody = RestAssured.given().body(cud.createUserData(name,job))
+		String responseBody = RestAssured.given().header("content-type", "application/json").body(cud.createUserData(name,job))
 		.when().post("/api/users")
 		.then().log().all().assertThat().statusCode(201).extract().response().asString();
 		
